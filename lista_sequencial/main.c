@@ -1,10 +1,4 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
-int main(){
-
-    printf("Está compilando");
-
-
-    return 0;
-}
