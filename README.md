@@ -1,2 +1,2 @@
 # lista-de-clientes
-Repositório para o trabalho 1 da disciplina de Estrutras de Dados 1
+Repositório para o trabalho 1 da disciplina de Estruturas de Dados 1
