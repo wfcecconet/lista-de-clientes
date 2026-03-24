@@ -31,6 +31,7 @@ int carregarPessoas(Pessoa listaPessoas[], int tamanhoMaximo, const char *nomeAr
     return contador;
 }
 
+/*-------------------------------------------------------------------*/
 void mostrarLista(const Pessoa listaPessoas[], int totalPessoas) {
 
      printf("--- Lista de Pessoas ---\n\n");
