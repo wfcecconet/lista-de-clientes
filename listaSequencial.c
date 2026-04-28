@@ -82,6 +82,13 @@ void menuOrdenacao(Pessoa *lista, int *tamanho){
         case 3:
             bubbleSort(lista, *tamanho);
             break;
+        case 4:
+            shellSort(lista, *tamanho);
+            break;
+        case 5:
+            break;
+        case 6:
+            break;
         default:
             printf("Op��o inv�lida\n");
             break;
