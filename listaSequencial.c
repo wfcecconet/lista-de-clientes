@@ -44,7 +44,7 @@ int carregarPessoas(Pessoa lista[], int *tamanho, const char *nomeArquivo){
 
     while(fscanf(ponteiroDoArquivo, " %99[^,],%ld", nome, &rg) == 2){
         if(*tamanho >= MAX_PESSOAS){
-            printf("Lista cheia. Não foi possível carregar todos os registros\n");
+            printf("Lista cheia. Nï¿½o foi possï¿½vel carregar todos os registros\n");
             break;
         }
         strcpy(lista[*tamanho].nome, nome);
@@ -62,7 +62,7 @@ void menuOrdenacao(Pessoa *lista, int *tamanho){
 
     int opcao;
 
-    printf("ORDENAÇÃO DE DADOS\n");
+    printf("ORDENAï¿½ï¿½O DE DADOS\n");
     printf("1 - Selection sort\n");
     printf("2 - Insertion sort\n");
     printf("3 - Bubble sort\n");
@@ -83,7 +83,7 @@ void menuOrdenacao(Pessoa *lista, int *tamanho){
             bubbleSort(lista, *tamanho);
             break;
         default:
-            printf("Opção inválida\n");
+            printf("Opï¿½ï¿½o invï¿½lida\n");
             break;
 
     }
@@ -98,7 +98,7 @@ void selectionSort(Pessoa *lista, int tamanho){
 
     contador.comp++;
     if (tamanho == 0){
-        printf("Erro: A lista está vazia!\n");
+        printf("Erro: A lista estï¿½ vazia!\n");
         return;
     }
 
@@ -127,10 +127,10 @@ void selectionSort(Pessoa *lista, int tamanho){
     contador.comp++;
     fim = clock();
 
-    printf("Operação finalizada com sucesso!\n\n");
-    printf("Comparações C(n): %d\n", contador.comp);
-    printf("Movimentações M(n): %d\n", contador.mov);
-    printf("Tempo de execução: %fs\n", tempoPercorrido(inicio, fim));
+    printf("Operaï¿½ï¿½o finalizada com sucesso!\n\n");
+    printf("Comparaï¿½ï¿½es C(n): %d\n", contador.comp);
+    printf("Movimentaï¿½ï¿½es M(n): %d\n", contador.mov);
+    printf("Tempo de execuï¿½ï¿½o: %fs\n", tempoPercorrido(inicio, fim));
 }
 
 void insertionSort(Pessoa *lista, int tamanho){
@@ -141,7 +141,7 @@ void insertionSort(Pessoa *lista, int tamanho){
 
     contador.comp++;
     if (tamanho == 0){
-        printf("Erro: A lista está vazia!\n");
+        printf("Erro: A lista estï¿½ vazia!\n");
         return;
     }
 
@@ -166,15 +166,15 @@ void insertionSort(Pessoa *lista, int tamanho){
     }
     contador.comp++;
     fim = clock();
-    printf("Operação finalizada com sucesso!\n\n");
-    printf("Comparações C(n): %d\n", contador.comp);
-    printf("Movimentações M(n): %d\n", contador.mov);
-    printf("Tempo de execução: %fs\n", tempoPercorrido(inicio, fim));
+    printf("Operaï¿½ï¿½o finalizada com sucesso!\n\n");
+    printf("Comparaï¿½ï¿½es C(n): %d\n", contador.comp);
+    printf("Movimentaï¿½ï¿½es M(n): %d\n", contador.mov);
+    printf("Tempo de execuï¿½ï¿½o: %fs\n", tempoPercorrido(inicio, fim));
 }
 
 void bubbleSort(Pessoa *lista, int tamanho){
     if (tamanho == 0){
-        printf("Erro: A lista está vazia!\n");
+        printf("Erro: A lista estï¿½ vazia!\n");
         return;
     }
     int i, j, trocou;
@@ -193,8 +193,22 @@ void bubbleSort(Pessoa *lista, int tamanho){
         if(trocou == 0)
             break;
     }
-    printf("Operação finalizada com sucesso!\n");
+    printf("Operaï¿½ï¿½o finalizada com sucesso!\n");
 }
+
+void shellSort(Pessoa *lista, int tamanho){
+    int gap, i,j;
+    Pessoa temp;
+
+    for(gap = tamanho/2; gap > 0; gap /= 2){
+        for(i=gap; i<tamanho; i++){
+            temp = lista[i];
+            for(j=i; j >= gap; i<tamanho && lista(j-gap).rg > temp.rg; j-=gap){
+                lista[j] = lista[j-gap];
+            }
+            lista[j] = temp;
+        }
+    }
 
 void inserir(Pessoa *lista, int *tamanho, int indice){
 
@@ -202,7 +216,7 @@ void inserir(Pessoa *lista, int *tamanho, int indice){
     clock_t inicio, fim;
 
     if(*tamanho >= MAX_PESSOAS){
-        printf("A lista está cheia\n");
+        printf("A lista estï¿½ cheia\n");
         pausaTela();
         return;
     }
@@ -231,10 +245,10 @@ void inserir(Pessoa *lista, int *tamanho, int indice){
     limparTela();
     printf("Nome: %s\n", lista[indice].nome);
     printf("RG: %ld\n", lista[indice].rg);
-    printf("Comparações C(n): %d\n", contador.comp);
-    printf("Movimentações M(n): %d\n", contador.mov);
-    printf("Tempo de execução: %fs\n", tempoPercorrido(inicio, fim));
-    printf("Posição na lista: %d\n\n", indice);
+    printf("Comparaï¿½ï¿½es C(n): %d\n", contador.comp);
+    printf("Movimentaï¿½ï¿½es M(n): %d\n", contador.mov);
+    printf("Tempo de execuï¿½ï¿½o: %fs\n", tempoPercorrido(inicio, fim));
+    printf("Posiï¿½ï¿½o na lista: %d\n\n", indice);
     pausaTela();
 }
 
@@ -242,10 +256,10 @@ void menuInsercao(Pessoa *lista, int *tamanho){
 
     int opcao, indice;
 
-    printf("INSERÇÃO\n");
-    printf("1 - Inserir no início\n");
+    printf("INSERï¿½ï¿½O\n");
+    printf("1 - Inserir no inï¿½cio\n");
     printf("2 - Inserir no final\n");
-    printf("3 - Escolher outro indíce\n");
+    printf("3 - Escolher outro indï¿½ce\n");
     scanf("%d", &opcao);
     limparTela();
 
@@ -258,21 +272,21 @@ void menuInsercao(Pessoa *lista, int *tamanho){
             break;
         case 3:
             if(*tamanho == 0) {
-                printf("Lista vazia. Insira no início ou no final.\n");
+                printf("Lista vazia. Insira no inï¿½cio ou no final.\n");
                 pausaTela();
                 break;
             }
-            printf("Tamanho atual: %d\nDigite o índice (1 a %d): ", (*tamanho), (*tamanho)-1);
+            printf("Tamanho atual: %d\nDigite o ï¿½ndice (1 a %d): ", (*tamanho), (*tamanho)-1);
             scanf("%d", &indice);
             if(indice <= 0 || indice >= *tamanho) {
-                printf("Índice inválido.\n");
+                printf("ï¿½ndice invï¿½lido.\n");
                 pausaTela();
                 break;
             }
             inserir(lista, tamanho, indice);
             break;
         default:
-            printf("Opção inválida\n");
+            printf("Opï¿½ï¿½o invï¿½lida\n");
             pausaTela();
     }
 }
@@ -305,19 +319,19 @@ void remover(Pessoa *lista, int *tamanho, int indice){
     limparTela();
 
     printf("Elemento removido com sucesso\n");
-    printf("Comparações C(n): %d\n", contador.comp);
-    printf("Movimentações M(n): %d\n", contador.mov);
-    printf("Tempo de execução: %fs\n", tempoPercorrido(inicio, fim));
+    printf("Comparaï¿½ï¿½es C(n): %d\n", contador.comp);
+    printf("Movimentaï¿½ï¿½es M(n): %d\n", contador.mov);
+    printf("Tempo de execuï¿½ï¿½o: %fs\n", tempoPercorrido(inicio, fim));
     pausaTela();
 }
 
 void menuRemocao(Pessoa *lista, int *tamanho){
     int opcao, indice;
 
-    printf("REMOÇÃO\n");
-    printf("1 - Remover do início\n");
+    printf("REMOï¿½ï¿½O\n");
+    printf("1 - Remover do inï¿½cio\n");
     printf("2 - Remover do final\n");
-    printf("3 - Escolher outro índice\n");
+    printf("3 - Escolher outro ï¿½ndice\n");
     scanf("%d", &opcao);
     limparTela();
 
@@ -334,7 +348,7 @@ void menuRemocao(Pessoa *lista, int *tamanho){
                 pausaTela();
                 break;
             }
-            printf("Tamanho atual: %d\nDigite o índice (1 a %d): ", (*tamanho), (*tamanho)-1);
+            printf("Tamanho atual: %d\nDigite o ï¿½ndice (1 a %d): ", (*tamanho), (*tamanho)-1);
             scanf("%d", &indice);
             if (indice<0 || indice>=(*tamanho)) {
                 printf("Indice invalido\n");
@@ -344,7 +358,7 @@ void menuRemocao(Pessoa *lista, int *tamanho){
             remover(lista, tamanho, indice);
             break;
         default:
-            printf("Opção inválida\n");
+            printf("Opï¿½ï¿½o invï¿½lida\n");
             pausaTela();
     }
 }
@@ -357,7 +371,7 @@ void mostrarLista(const Pessoa lista[], int tamanho){
         return;
     }
     for (int i = 0; i < tamanho; i++) {
-        printf("Posição %d\n", i);
+        printf("Posiï¿½ï¿½o %d\n", i);
         printf("Nome: %s\n", lista[i].nome);
         printf("RG:   %ld\n\n", lista[i].rg);
     }
@@ -394,18 +408,18 @@ void buscaRG(Pessoa *lista, int tamanho){
         fim = clock();
         printf("Nome: %s\n", lista[i].nome);
         printf("RG: %ld\n", lista[i].rg);
-        printf("Comparações C(n): %d\n", contador.comp);
-        printf("Movimentações M(n): %d\n", contador.mov);
-        printf("Tempo de execução: %fs\n", tempoPercorrido(inicio, fim));
-        printf("Posição na lista: %d\n\n", i);
+        printf("Comparaï¿½ï¿½es C(n): %d\n", contador.comp);
+        printf("Movimentaï¿½ï¿½es M(n): %d\n", contador.mov);
+        printf("Tempo de execuï¿½ï¿½o: %fs\n", tempoPercorrido(inicio, fim));
+        printf("Posiï¿½ï¿½o na lista: %d\n\n", i);
     }
     else{
         contador.comp++;
         fim = clock();
-        printf("RG não encontrado\n");
-        printf("Comparações C(n): %d\n", contador.comp);
-        printf("Movimentações M(n): %d\n", contador.mov);
-        printf("Tempo de execução: %fs\n", tempoPercorrido(inicio, fim));
+        printf("RG nï¿½o encontrado\n");
+        printf("Comparaï¿½ï¿½es C(n): %d\n", contador.comp);
+        printf("Movimentaï¿½ï¿½es M(n): %d\n", contador.mov);
+        printf("Tempo de execuï¿½ï¿½o: %fs\n", tempoPercorrido(inicio, fim));
     }
     pausaTela();
 }

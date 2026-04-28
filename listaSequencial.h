@@ -34,6 +34,7 @@ void menuOrdenacao(Pessoa *lista, int *tamanho);
 void selectionSort(Pessoa *lista, int tamanho);
 void insertionSort(Pessoa *lista, int tamanho);
 void bubbleSort(Pessoa *lista, int tamanho);
+void shellSort(Pessoa *lista, int tamanho);
 
 void lerPessoaTeclado(char *nome, long int *rg);
 void menuInsercao(Pessoa *lista, int *tamanho);
