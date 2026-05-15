@@ -89,6 +89,7 @@ void menuOrdenacao(Pessoa *lista, int *tamanho){
             quickSort(lista, 0, (*tamanho)-1);
             break;
         case 6:
+            mergeSort(lista, 0, (*tamanho)-1);
             break;
         default:
             printf("Opção inválida\n");
@@ -243,6 +244,45 @@ void quickSort(Pessoa *lista, int baixo, int alto){
         int p = particiona(lista, baixo, alto);
         quickSort(lista, baixo, p);
         quickSort(lista, p+1, alto);
+    }
+}
+
+void merge(Pessoa *lista, int e, int m, int d){
+    int n1 = m - e + 1;
+    int n2 = d - m;
+    Pessoa *E = (Pessoa*) malloc (n1*sizeof(Pessoa));
+    Pessoa *D = (Pessoa*) malloc (n2*sizeof(Pessoa));
+
+    if(E == NULL || D == NULL){
+        printf("Não foi possível alocar subvetores!");
+        exit(1);
+    }
+    for(int i = 0; i < n1; i++) E[i] = lista[e+i];
+    for(int j = 0; j < n2; j++) D[j] = lista[m+1+j];
+
+
+    int i = 0, j = 0, k = e;
+    while(i < n1 && j < n2){
+        if(E[i].rg <= D[j].rg)
+            lista[k++] = E[i++];
+        else
+            lista[k++] = D[j++];
+    }
+    while(i<n1) lista[k++] = E[i++];
+    while(j<n2) lista[k++] = D[j++];
+
+    free(E);
+    free(D);
+}
+
+
+void mergeSort(Pessoa *lista, int e, int d){
+
+    if(e < d){
+        int m = e + (d - e) / 2;
+        mergeSort(lista, e, m);
+        mergeSort(lista, m+1, d);
+        merge(lista, e, m, d);
     }
 }
 
