@@ -454,6 +454,30 @@ void mostrarLista(const Pessoa lista[], int tamanho){
     pausaTela();
 }
 
+void menuBusca(Pessoa *lista, int tamanho){
+    int opcao, indice;
+
+    printf("BUSCA\n");
+    printf("1 - Busca sequencial\n");
+    printf("2 - Busca binária\n");
+    scanf("%d", &opcao);
+    limparTela();
+
+    switch(opcao) {
+        case 1:
+            buscaRG(lista, tamanho);
+            break;
+        case 2:
+            buscaBinaria(lista, tamanho);
+            break;
+        default:
+            printf("Opção inválida\n");
+            pausaTela();
+    }
+
+
+}
+
 void buscaRG(Pessoa *lista, int tamanho){
 
     Metricas contador = {0, 0};
@@ -497,6 +521,39 @@ void buscaRG(Pessoa *lista, int tamanho){
         printf("Movimentações M(n): %d\n", contador.mov);
         printf("Tempo de execução: %fs\n", tempoPercorrido(inicio, fim));
     }
+    pausaTela();
+}
+void buscaBinaria(Pessoa *lista, int tamanho){
+
+    int esq = 0;
+    int dir = tamanho - 1;
+    long int rg;
+    int i;
+    int encontrou = 0;
+
+    printf("Digite o RG: ");
+    scanf("%ld", &rg);
+
+    while(esq <= dir && !encontrou){
+        i = esq + (dir - esq) / 2;
+
+        if(lista[i].rg == rg)
+            encontrou = 1;
+        else if(lista[i].rg > rg)
+            dir = i - 1;
+        else{
+            esq = i + 1;
+        };
+    }
+
+
+    if(encontrou){
+        printf("Nome: %s\n", lista[i].nome);
+        printf("RG: %ld\n", lista[i].rg);
+    }
+    else
+        printf("RG não encontrado\n");
+
     pausaTela();
 }
 

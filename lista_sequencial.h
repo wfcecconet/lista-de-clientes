@@ -50,7 +50,9 @@ void remover(Pessoa *lista, int *tamanho, int indice);
 
 void mostrarLista(const Pessoa lista[], int tamanho);
 
+void menuBusca(Pessoa *lista, int tamanho);
 void buscaRG(Pessoa *lista, int tamanho);
+void buscaBinaria(Pessoa *lista, int tamanho);
 
 void salvarLista(Pessoa *lista, int tamanho);
 

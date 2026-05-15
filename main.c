@@ -45,7 +45,7 @@ int main() {
                 mostrarLista(minhaLista, totalCarregado);
                 break;
             case 5:
-                buscaRG(minhaLista, totalCarregado);
+                menuBusca(minhaLista, totalCarregado);
                 limparTela();
                 break;
             case 6:
