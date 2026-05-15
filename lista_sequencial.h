@@ -35,6 +35,10 @@ void selectionSort(Pessoa *lista, int tamanho);
 void insertionSort(Pessoa *lista, int tamanho);
 void bubbleSort(Pessoa *lista, int tamanho);
 void shellSort(Pessoa *lista, int tamanho);
+void quickSort(Pessoa *lista, int baixo, int alto);
+
+int particiona(Pessoa *lista, int baixo, int alto);
+void troca (Pessoa *a, Pessoa *b);
 
 void lerPessoaTeclado(char *nome, long int *rg);
 void menuInsercao(Pessoa *lista, int *tamanho);

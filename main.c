@@ -3,7 +3,7 @@
 #include <string.h>
 #include <time.h>
 #include <locale.h>
-#include "listaSequencial.h"
+#include "lista_sequencial.h"
 
 int main() {
     setlocale(LC_ALL, "Portuguese");
