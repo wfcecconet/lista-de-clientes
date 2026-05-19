@@ -617,22 +617,21 @@ void buscaRG(Pessoa *lista, int tamanho){
 
     if(encontrado){
         contador.comp++;
-        fim = clock();
+
+        printf("Posição na lista: %d\n", i);
         printf("Nome: %s\n", lista[i].nome);
         printf("RG: %ld\n", lista[i].rg);
-        printf("Comparações C(n): %d\n", contador.comp);
-        printf("Movimentações M(n): %d\n", contador.mov);
-        printf("Tempo de execução: %fs\n", tempoPercorrido(inicio, fim));
-        printf("Posição na lista: %d\n\n", i);
     }
     else{
         contador.comp++;
-        fim = clock();
         printf("RG não encontrado\n");
-        printf("Comparações C(n): %d\n", contador.comp);
-        printf("Movimentações M(n): %d\n", contador.mov);
-        printf("Tempo de execução: %fs\n", tempoPercorrido(inicio, fim));
+
     }
+    fim = clock();
+
+    printf("Comparações C(n): %d\n", contador.comp);
+    printf("Movimentações M(n): %d\n", contador.mov);
+    printf("Tempo de execução: %fs\n", tempoPercorrido(inicio, fim));
     pausaTela();
 }
 void buscaBinaria(Pessoa *lista, int tamanho){
@@ -673,6 +672,7 @@ void buscaBinaria(Pessoa *lista, int tamanho){
 
     if(encontrou){
         contador.comp++;
+        printf("Posição na lista: %d\n", i);
         printf("Nome: %s\n", lista[i].nome);
         printf("RG: %ld\n", lista[i].rg);
     }

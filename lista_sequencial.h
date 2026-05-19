@@ -10,7 +10,7 @@
 #define MAX_PESSOAS         12000000
 #define TAMANHO_MAX_NOME    100
 #define TAMANHO_MAX_LINHA   128
-#define NOME_ARQUIVO        "NomeRG10k.txt"
+#define NOME_ARQUIVO        "NomeRG100M.txt"
 
 typedef struct {
     char nome[TAMANHO_MAX_NOME];
