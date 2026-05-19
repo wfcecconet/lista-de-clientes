@@ -5,6 +5,9 @@
 #include <locale.h>
 #include "lista_sequencial.h"
 
+
+Metricas contador = {0, 0};
+
 void limparTela(){
 
     system("cls");
@@ -86,10 +89,27 @@ void menuOrdenacao(Pessoa *lista, int *tamanho){
             shellSort(lista, *tamanho);
             break;
         case 5:
+            contador.comp = 0;
+            contador.mov = 0;
+            clock_t Begin, End;
+            Begin = clock();
             quickSort(lista, 0, (*tamanho)-1);
+            End = clock();
+            printf("Operação finalizada com sucesso!\n\n");
+            printf("Comparações C(n): %d\n", contador.comp);
+            printf("Movimentações M(n): %d\n", contador.mov);
+            printf("Tempo de execução: %fs\n", tempoPercorrido(Begin, End));
             break;
         case 6:
+            contador.comp = 0;
+            contador.mov = 0;
+            Begin = clock();
             mergeSort(lista, 0, (*tamanho)-1);
+            End = clock();
+            printf("Operação finalizada com sucesso!\n\n");
+            printf("Comparações C(n): %d\n", contador.comp);
+            printf("Movimentações M(n): %d\n", contador.mov);
+            printf("Tempo de execução: %fs\n", tempoPercorrido(Begin, End));
             break;
         default:
             printf("Opção inválida\n");
@@ -100,7 +120,8 @@ void menuOrdenacao(Pessoa *lista, int *tamanho){
 }
 
 void selectionSort(Pessoa *lista, int tamanho){
-    Metricas contador = {0, 0};
+    contador.comp = 0;
+    contador.mov = 0;
     clock_t inicio, fim;
 
     inicio = clock();
@@ -143,7 +164,8 @@ void selectionSort(Pessoa *lista, int tamanho){
 }
 
 void insertionSort(Pessoa *lista, int tamanho){
-    Metricas contador = {0, 0};
+    contador.comp = 0;
+    contador.mov = 0;
     clock_t inicio, fim;
 
     inicio = clock();
@@ -182,42 +204,82 @@ void insertionSort(Pessoa *lista, int tamanho){
 }
 
 void bubbleSort(Pessoa *lista, int tamanho){
+    contador.comp = 0;
+    contador.mov = 0;
+    clock_t inicio, fim;
+    inicio = clock();
+
     if (tamanho == 0){
         printf("Erro: A lista está vazia!\n");
         return;
     }
+    contador.comp++;
+
     int i, j, trocou;
     Pessoa temp;
 
     for(i=0; i<(tamanho-1); i++){
+        contador.comp++;
         trocou = 0;
         for(j=0; j<(tamanho-i-1); j++){
+            contador.comp++;
             if(lista[j].rg > lista[j+1].rg){
+                contador.comp++;
                 temp = lista[j];
                 lista[j] = lista[j+1];
                 lista[j+1] = temp;
+                contador.mov+=3;
                 trocou = 1;
             }
+        contador.comp++;
         }
-        if(trocou == 0)
+        contador.comp++;
+        if(trocou == 0){
+            contador.comp++;
             break;
+        }
+        contador.comp++;
     }
-    printf("Operação finalizada com sucesso!\n");
+    fim = clock();
+    printf("Operação finalizada com sucesso!\n\n");
+    printf("Comparações C(n): %d\n", contador.comp);
+    printf("Movimentações M(n): %d\n", contador.mov);
+    printf("Tempo de execução: %fs\n", tempoPercorrido(inicio, fim));
 }
 
 void shellSort(Pessoa *lista, int tamanho){
+    contador.comp = 0;
+    contador.mov = 0;
+    clock_t inicio, fim;
+    inicio = clock();
+
     int gap, i,j;
     Pessoa temp;
 
     for(gap = tamanho/2; gap > 0; gap /= 2){
+        contador.comp++;
         for(i=gap; i<tamanho; i++){
+            contador.comp++;
             temp = lista[i];
+            contador.mov++;
             for(j=i; j >= gap && lista[j-gap].rg > temp.rg; j-=gap){
+                contador.comp++;
                 lista[j] = lista[j-gap];
+                contador.mov++;
             }
+            contador.comp++;
             lista[j] = temp;
+            contador.mov++;
         }
+        contador.comp++;
     }
+    contador.comp++;
+
+    fim = clock();
+    printf("Operação finalizada com sucesso!\n\n");
+    printf("Comparações C(n): %d\n", contador.comp);
+    printf("Movimentações M(n): %d\n", contador.mov);
+    printf("Tempo de execução: %fs\n", tempoPercorrido(inicio, fim));
 }
 
 int particiona(Pessoa *lista, int baixo, int alto){
@@ -228,67 +290,115 @@ int particiona(Pessoa *lista, int baixo, int alto){
     while(1){
         do{i++;} while(lista[i].rg < pivo.rg);
         do{j--;} while(lista[j].rg > pivo.rg);
-        if(i>=j) return j;
+        contador.comp+=2;
+        if(i>=j){
+            contador.comp++;
+            return j;
+        }
         troca(&lista[i], &lista[j]);
+        contador.comp++;
     }
+    contador.comp++;
 }
 
 void troca (Pessoa *a, Pessoa *b){
     Pessoa temp = *a;
     *a = *b;
     *b = temp;
+    contador.mov+=3;
 }
 
 void quickSort(Pessoa *lista, int baixo, int alto){
+
     if(baixo < alto){
+        contador.comp++;
         int p = particiona(lista, baixo, alto);
         quickSort(lista, baixo, p);
         quickSort(lista, p+1, alto);
     }
+    contador.comp++;
+
 }
 
 void merge(Pessoa *lista, int e, int m, int d){
+
     int n1 = m - e + 1;
     int n2 = d - m;
     Pessoa *E = (Pessoa*) malloc (n1*sizeof(Pessoa));
     Pessoa *D = (Pessoa*) malloc (n2*sizeof(Pessoa));
+    contador.mov+=2;
 
     if(E == NULL || D == NULL){
+        contador.comp+=2;
         printf("Não foi possível alocar subvetores!");
         exit(1);
     }
-    for(int i = 0; i < n1; i++) E[i] = lista[e+i];
-    for(int j = 0; j < n2; j++) D[j] = lista[m+1+j];
+    contador.comp+=2;
+    for(int i = 0; i < n1; i++){
+        contador.comp++;
+        E[i] = lista[e+i];
+        contador.mov++;
+    }
+    contador.comp++;
+    for(int j = 0; j < n2; j++){
+        contador.comp++;
+        D[j] = lista[m+1+j];
+        contador.mov++;
+    }
+    contador.comp++;
 
 
     int i = 0, j = 0, k = e;
     while(i < n1 && j < n2){
-        if(E[i].rg <= D[j].rg)
+        contador.comp++;
+        if(E[i].rg <= D[j].rg){
+            contador.comp++;
             lista[k++] = E[i++];
-        else
+            contador.mov++;
+        }
+        else{
+            contador.comp++;
             lista[k++] = D[j++];
+            contador.mov++;
+        }
     }
-    while(i<n1) lista[k++] = E[i++];
-    while(j<n2) lista[k++] = D[j++];
+    contador.comp++;
+
+    while(i<n1){
+        contador.comp++;
+        lista[k++] = E[i++];
+        contador.mov++;
+    }
+    contador.comp++;
+    while(j<n2){
+        contador.comp++;
+        lista[k++] = D[j++];
+        contador.mov++;
+    }
+    contador.comp++;
 
     free(E);
     free(D);
+    contador.mov+=2;
 }
 
 
 void mergeSort(Pessoa *lista, int e, int d){
 
     if(e < d){
+        contador.comp++;
         int m = e + (d - e) / 2;
         mergeSort(lista, e, m);
         mergeSort(lista, m+1, d);
         merge(lista, e, m, d);
     }
+    contador.comp++;
 }
 
 void inserir(Pessoa *lista, int *tamanho, int indice){
 
-    Metricas contador = {0, 0};
+    contador.comp = 0;
+    contador.mov = 0;
     clock_t inicio, fim;
 
     if(*tamanho >= MAX_PESSOAS){
@@ -369,7 +479,8 @@ void menuInsercao(Pessoa *lista, int *tamanho){
 
 void remover(Pessoa *lista, int *tamanho, int indice){
 
-    Metricas contador = {0, 0};
+    contador.comp = 0;
+    contador.mov = 0;
     clock_t inicio, fim;
 
     if(*tamanho <= 0) {
@@ -455,7 +566,7 @@ void mostrarLista(const Pessoa lista[], int tamanho){
 }
 
 void menuBusca(Pessoa *lista, int tamanho){
-    int opcao, indice;
+    int opcao;
 
     printf("BUSCA\n");
     printf("1 - Busca sequencial\n");
@@ -480,7 +591,8 @@ void menuBusca(Pessoa *lista, int tamanho){
 
 void buscaRG(Pessoa *lista, int tamanho){
 
-    Metricas contador = {0, 0};
+    contador.comp = 0;
+    contador.mov = 0;
     clock_t inicio, fim;
     long int rg;
     int encontrado = 0;
@@ -525,6 +637,10 @@ void buscaRG(Pessoa *lista, int tamanho){
 }
 void buscaBinaria(Pessoa *lista, int tamanho){
 
+    contador.comp = 0;
+    contador.mov = 0;
+    clock_t inicio, fim;
+
     int esq = 0;
     int dir = tamanho - 1;
     long int rg;
@@ -533,27 +649,41 @@ void buscaBinaria(Pessoa *lista, int tamanho){
 
     printf("Digite o RG: ");
     scanf("%ld", &rg);
+    inicio = clock();
 
     while(esq <= dir && !encontrou){
+        contador.comp+=2;
         i = esq + (dir - esq) / 2;
 
-        if(lista[i].rg == rg)
+        if(lista[i].rg == rg){
+            contador.comp++;
             encontrou = 1;
-        else if(lista[i].rg > rg)
+        }
+        else if(lista[i].rg > rg){
+            contador.comp++;
             dir = i - 1;
+        }
         else{
+            contador.comp++;
             esq = i + 1;
         };
     }
+    contador.comp+=2;
 
 
     if(encontrou){
+        contador.comp++;
         printf("Nome: %s\n", lista[i].nome);
         printf("RG: %ld\n", lista[i].rg);
     }
-    else
+    else{
+        contador.comp++;
         printf("RG não encontrado\n");
-
+    }
+    fim = clock();
+    printf("Comparações C(n): %d\n", contador.comp);
+    printf("Movimentações M(n): %d\n", contador.mov);
+    printf("Tempo de execução: %fs\n", tempoPercorrido(inicio, fim));
     pausaTela();
 }
 
